@@ -1,16 +1,10 @@
 import React from "react";
+import { FlexSection } from "../Styled/FlexSection";
 
 import smartphone from "../../logos/smartphone.png";
 
 export const Smartphone = () => (
-  <div
-    style={{
-      flex: 5,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "flex-start"
-    }}
-  >
+  <FlexSection flex={5} justifyContent="center">
     <img style={{ width: "500px" }} alt="smartphone" src={smartphone} />
-  </div>
+  </FlexSection>
 );
