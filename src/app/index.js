@@ -10,7 +10,7 @@ import { sequence } from "./utils";
 import Mock from "../mock";
 
 class App extends Component {
-  state = { measurements: null, indicators: null };
+  state = {};
 
   componentDidMount() {
     // Later on replace Promise.resolve(Mock) with axios get
