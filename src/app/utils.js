@@ -7,20 +7,20 @@ export const sequence = ({
   clouds,
   sys: { sunrise, sunset }
 }) => {
-  const { main, description } = weather;
+  const [{ main, description }] = weather;
   const measurements = {
-    main,
     description,
     temp,
-    wind,
-    sunrise,
-    sunset
+    wind
   };
   const indicators = {
+    main,
     clouds,
     rain,
     snow,
-    wind
+    wind,
+    sunrise,
+    sunset
   };
   return { measurements, indicators };
 };
