@@ -27,6 +27,8 @@ export default {
   clouds: {
     all: 0
   },
+  rain: { "3h": 0 },
+  snow: { "3h": 0 },
   dt: 1530287400,
   sys: {
     type: 1,
