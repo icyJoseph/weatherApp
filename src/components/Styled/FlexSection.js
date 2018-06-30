@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-export const FlexSection = styled.div`
+export const FlexSection = styled.div.attrs({
+  style: props => ({
+    ...props.style
+  })
+})`
   flex: ${props => props.flex || 1};
   display: flex;
-  justify-content: ${props => props.justifyContent || "flex-start"};
-  align-items: ${props => props.alignItems || "flex-start"};
+  justify-content: ${props => props.justifyContent || "center"};
+  align-items: ${props => props.alignItems || "center"};
   color: ${props => props.color || "white"};
+  flex-direction: ${props => props.direction || "row"};
 `;
