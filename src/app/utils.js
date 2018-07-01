@@ -5,10 +5,12 @@ export const sequence = ({
   snow,
   rain,
   clouds,
-  sys: { sunrise, sunset }
+  sys: { sunrise, sunset },
+  name
 }) => {
   const [{ main, description }] = weather;
   const measurements = {
+    name,
     description,
     temp,
     max: temp_max,
