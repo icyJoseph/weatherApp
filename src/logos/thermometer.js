@@ -1,17 +1,30 @@
 import React from "react";
 
+// max temp is 46.818, lower temps need higher numbers, lowest happens at 176
 const high = 46.818;
 const low = 176;
+
+const max = 50;
+const min = -50;
 
 const compareTemp = temp => {
   if (temp > low) return low;
   if (temp < high) return high;
   return temp;
 };
-// max temp is 46.818, lower temps need higher numbers, lowest happens at 176
-export const Thermometer = ({ celsius = 100 }) => {
-  const temperature = celsius * -2.1197 + 131.606;
-  const temp = compareTemp(temperature);
+
+const m = (high - low) / (max - min);
+const b = high - m * max;
+
+const colorMap = celsius => {
+  if (celsius > 10) return "#CB4E44";
+  return "#0059BF ";
+};
+export const Thermometer = ({ celsius }) => {
+  // y = m * x + b
+  const temperature = celsius * m + b;
+  const temp = compareTemp(temperature) || 100;
+  const color = colorMap(celsius);
   return (
     <g>
       <path
@@ -30,11 +43,11 @@ export const Thermometer = ({ celsius = 100 }) => {
       />
       <path
         strokeWidth="26"
-        stroke="#CB4E44"
+        stroke={`${color}`}
         strokeLinecap="round"
         d={`M126 225 L126 ${temp}`}
       />
-      <circle fill="#CB4E44" cx="126" cy="225" r="43" />
+      <circle fill={`${color}`} cx="126" cy="225" r="43" />
       <path
         fill="#FFFFFF"
         d="M154.499,176.13V46.818c0-15.516-12.585-28.091-28.091-28.091S98.317,31.303,98.317,46.818V176.13
