@@ -1,6 +1,6 @@
 export const sequence = ({
   weather,
-  main: { temp },
+  main: { temp, temp_max, temp_min },
   wind,
   snow,
   rain,
@@ -11,6 +11,8 @@ export const sequence = ({
   const measurements = {
     description,
     temp,
+    max: temp_max,
+    min: temp_min,
     wind
   };
   const indicators = {
