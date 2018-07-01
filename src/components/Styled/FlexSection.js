@@ -9,6 +9,6 @@ export const FlexSection = styled.div.attrs({
   display: flex;
   justify-content: ${props => props.justifyContent || "center"};
   align-items: ${props => props.alignItems || "center"};
-  color: ${props => props.color || "white"};
+  color: ${props => props.color || "#54525d"};
   flex-direction: ${props => props.direction || "row"};
 `;
