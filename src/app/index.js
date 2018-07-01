@@ -4,9 +4,7 @@ import { Weather } from "../components/Weather";
 import { Smartphone } from "../components/Smartphone";
 
 import { Container } from "../components/Styled/Container";
-
 import { sequence } from "./utils";
-
 import Mock from "../mock";
 
 class App extends Component {
@@ -22,10 +20,11 @@ class App extends Component {
       );
   }
   render() {
+    const { measurements, indicators } = this.state;
     return (
       <Container>
-        <Measurements measurements={this.state.measurements} />
-        <Weather indicators={this.state.indicators} />
+        <Measurements measurements={measurements} />
+        <Weather indicators={indicators} />
         <Smartphone />
       </Container>
     );
