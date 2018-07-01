@@ -2,17 +2,19 @@ import React, { Fragment } from "react";
 import { FlexSection } from "../Styled/FlexSection";
 import { Temperature } from "./Temperature";
 
-const Description = ({ description = "" }) => (
-  <FlexSection>{description}</FlexSection>
+const capitalize = text => text.charAt(0).toUpperCase() + text.slice(1);
+
+const City = ({ name = "" }) => (
+  <FlexSection style={{ fontSize: 30 }}>{capitalize(name)}</FlexSection>
 );
-const Wind = ({ wind = { speed: 0 } }) => (
-  <FlexSection>{wind.speed} m/s</FlexSection>
+const Description = ({ description = "" }) => (
+  <FlexSection style={{ fontSize: 30 }}>{capitalize(description)}</FlexSection>
 );
 
 const Loading = () => <div>Loading...</div>;
 
 export const Measurements = ({ measurements = {} }) => {
-  const { description, temp, wind } = measurements;
+  const { name, description, temp, max, min } = measurements;
   return (
     <FlexSection
       flex={3}
@@ -23,9 +25,9 @@ export const Measurements = ({ measurements = {} }) => {
     >
       {measurements ? (
         <Fragment>
+          <City name={name} />
           <Description description={description} />
-          <Temperature temp={temp} />
-          <Wind wind={wind} />
+          <Temperature temp={temp} max={max} min={min} />
         </Fragment>
       ) : (
         <Loading />
