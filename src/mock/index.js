@@ -16,8 +16,8 @@ export default {
     temp: 293.15,
     pressure: 1020,
     humidity: 30,
-    temp_min: 293.15,
-    temp_max: 293.15
+    temp_min: 283.15,
+    temp_max: 303.15
   },
   visibility: 10000,
   wind: {
