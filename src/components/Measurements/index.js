@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import { FlexSection } from "../Styled/FlexSection";
+import { Temperature } from "./Temperature";
 
 const Description = ({ description = "" }) => (
   <FlexSection>{description}</FlexSection>
 );
-const Temp = ({ temp = 0 }) => <FlexSection>{temp} K</FlexSection>;
 const Wind = ({ wind = { speed: 0 } }) => (
   <FlexSection>{wind.speed} m/s</FlexSection>
 );
@@ -24,7 +24,7 @@ export const Measurements = ({ measurements = {} }) => {
       {measurements ? (
         <Fragment>
           <Description description={description} />
-          <Temp temp={temp} />
+          <Temperature temp={temp} />
           <Wind wind={wind} />
         </Fragment>
       ) : (
