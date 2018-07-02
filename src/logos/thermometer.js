@@ -16,6 +16,7 @@ const compareTemp = temp => {
 const m = (high - low) / (max - min);
 const b = high - m * max;
 
+// TODO: use brain js to get a formula
 const colorMap = celsius => {
   if (celsius > 10) return "#CB4E44";
   return "#0059BF ";
