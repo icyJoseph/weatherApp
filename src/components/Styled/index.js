@@ -88,3 +88,9 @@ export const Button = styled.a`
   border: 2px solid #f8f8f8;
   font-size: 24pt;
 `;
+
+export const LoadingWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100px;
+`;
