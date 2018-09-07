@@ -5,6 +5,7 @@ export const FlexSection = styled.div.attrs({
     ...props.style
   })
 })`
+  width: 100%;
   flex: ${props => props.flex || 1};
   display: flex;
   justify-content: ${props => props.justifyContent || "center"};

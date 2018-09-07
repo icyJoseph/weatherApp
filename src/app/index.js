@@ -1,8 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Measurements } from "../components/Measurements";
-import { Weather } from "../components/Weather";
 import { Smartphone } from "../components/Smartphone";
-
 import { Container } from "../components/Styled/Container";
 import { sequence } from "./utils";
 import Mock from "../mock";
@@ -23,9 +21,7 @@ class App extends Component {
     const { measurements, indicators } = this.state;
     return (
       <Container>
-        <Measurements measurements={measurements} />
-        <Weather indicators={indicators} />
-        <Smartphone />
+        <Measurements measurements={measurements} indicators={indicators} />
       </Container>
     );
   }

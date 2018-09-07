@@ -3,9 +3,12 @@ import styled from "styled-components";
 export const Image = styled.img.attrs({
   style: props => ({ ...props })
 })`
-  width: 500px;
+  margin: 0 auto;
+  height: 300px;
+  width: auto;
 
-  @media (max-width: 600px) {
-    width: 350px;
+  @media (min-width: 700px) {
+    height: 300px;
+    width: auto;
   }
 `;

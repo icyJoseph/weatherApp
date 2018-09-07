@@ -4,13 +4,14 @@ import { Image } from "../Styled/Image";
 import smartphone from "../../logos/smartphone.png";
 
 export const Smartphone = () => (
-  <FlexSection
-    flex={4}
+  <div
     style={{
-      borderRadius: "300px 300px 40px 40px/ 300px 300px 40px 40px",
-      background: "#fc6363"
+      background: "#fc6363",
+      display: "flex",
+      flex: 2,
+      borderRadius: "50% 50% 0 0 "
     }}
   >
-    <Image alt="smartphone" src={smartphone} />
-  </FlexSection>
+    {/* <Image src={smartphone} /> */}
+  </div>
 );

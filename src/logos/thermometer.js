@@ -1,5 +1,5 @@
 import React from "react";
-
+import { mapColorToTemp } from "../helpers";
 // max temp is 46.818, lower temps need higher numbers, lowest happens at 176
 const high = 46.818;
 const low = 176;
@@ -14,18 +14,14 @@ const compareTemp = temp => {
 };
 
 const m = (high - low) / (max - min);
-const b = high - m * max;
+const k = high - m * max;
 
-// TODO: use brain js to get a formula
-const colorMap = celsius => {
-  if (celsius > 10) return "#CB4E44";
-  return "#0059BF ";
-};
 export const Thermometer = ({ celsius }) => {
   // y = m * x + b
-  const temperature = celsius * m + b;
-  const temp = compareTemp(temperature) || 100;
-  const color = colorMap(celsius);
+  const temp = compareTemp(celsius * m + k) || 100;
+  const { r, g, b, a } = mapColorToTemp(celsius);
+  const color = `rgb(${r}, ${g}, ${b})`;
+  console.log(color);
   return (
     <g>
       <path

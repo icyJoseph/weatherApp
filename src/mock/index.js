@@ -6,14 +6,14 @@ export default {
   weather: [
     {
       id: 800,
-      main: "Clear",
+      main: "Clouds",
       description: "clear sky",
       icon: "01d"
     }
   ],
   base: "stations",
   main: {
-    temp: 293.15,
+    temp: 300,
     pressure: 1020,
     humidity: 30,
     temp_min: 283.15,
