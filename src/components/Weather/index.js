@@ -25,7 +25,7 @@ export const Weather = ({ indicators = {} }) => {
       style={{
         background: "#fc6363",
         borderRadius: "50% 50% 40px 40px",
-        width: "125%"
+        width: "100%"
       }}
     >
       <SvgContainer width="100px" height="100px" viewBox="0 0 300 300">

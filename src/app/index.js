@@ -18,7 +18,8 @@ class App extends Component {
       .then(sequence)
       .then(({ measurements, indicators }) =>
         this.setState({ measurements, indicators })
-      );
+      )
+      .then(() => setTimeout(() => this.setState({ ready: true }), 5000));
   }
   render() {
     const { measurements, indicators, ready } = this.state;

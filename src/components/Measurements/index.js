@@ -9,8 +9,8 @@ export const Measurements = ({ measurements = {} }) => {
   const [celsius, maxTemp, minTemp] = [temp, max, min].map(K2C);
 
   return (
-    <FlexSection flex={3} style={{ paddingTop: 40 }}>
-      <SvgContainer width="150px" height="150px" viewBox="0 0 300 300">
+    <FlexSection flex={3} style={{ paddingTop: 40, margin: "auto 20px" }}>
+      <SvgContainer width="100px" height="100px" viewBox="0 0 300 300">
         <Thermometer celsius={celsius} />
       </SvgContainer>
       <FlexSection direction="column">
