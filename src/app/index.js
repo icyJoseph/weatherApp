@@ -7,6 +7,9 @@ import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
 import { Container } from "../components/Styled";
 import { sequence } from "./utils";
+
+import { debounce } from "../helpers";
+
 import Mock from "../mock";
 
 class App extends Component {
@@ -27,9 +30,13 @@ class App extends Component {
     this.setState({ search: event.target.value });
   };
 
+  makeRequest = debounce(() => {
+    return console.log("A name was submitted: " + this.state.search);
+  }, 1000);
+
   handleSubmit = event => {
-    alert("A name was submitted: " + this.state.search);
     event.preventDefault();
+    return this.makeRequest();
   };
 
   render() {
