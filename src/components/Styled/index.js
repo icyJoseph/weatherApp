@@ -41,3 +41,50 @@ export const FlexSection = styled.div.attrs({
   color: ${props => props.color || "#54525d"};
   flex-direction: ${props => props.direction || "row"};
 `;
+
+export const Form = styled.form`
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export const Input = styled.input`
+  width: 80%;
+  padding: 0;
+  margin: 15px 0 0 2.5%;
+  boxsizing: border-box;
+  position: absolute;
+  height: 50px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  color: #f8f8f8;
+  border-bottom: 2px solid #f8f8f8;
+  font-size: 36pt;
+
+  :focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    color: #e9e9e9;
+  }
+`;
+
+export const Button = styled.a`
+  width: 12.5%;
+  right: 0;
+  padding: 0;
+  margin: 10px 2.5% 0 2.5%;
+  position: absolute;
+  border-radius: 10px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  line-height: 50px;
+  text-align: center;
+  color: #f8f8f8;
+  border: 2px solid #f8f8f8;
+  font-size: 24pt;
+`;
