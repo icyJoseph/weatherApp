@@ -1,5 +1,6 @@
 import React from "react";
 import { mapColorToTemp } from "../helpers";
+
 // max temp is 46.818, lower temps need higher numbers, lowest happens at 176
 const high = 46.818;
 const low = 176;
@@ -20,8 +21,8 @@ export const Thermometer = ({ celsius }) => {
   // y = m * x + b
   const temp = compareTemp(celsius * m + k) || 100;
   const { r, g, b, a } = mapColorToTemp(celsius);
-  const color = `rgb(${r}, ${g}, ${b})`;
-  console.log(color);
+  const color = `rgb(${r}, ${g}, ${b}, ${a})`;
+
   return (
     <g>
       <path

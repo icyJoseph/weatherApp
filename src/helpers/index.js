@@ -1,5 +1,4 @@
 export function mapColorToTemp(temp) {
-  console.log(temp);
   return {
     r:
       255 /

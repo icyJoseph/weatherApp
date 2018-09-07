@@ -1,6 +1,8 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+
+import { Geography } from "../components/Geography";
 import { Measurements } from "../components/Measurements";
-import { Smartphone } from "../components/Smartphone";
+import { Weather } from "../components/Weather";
 import { Container } from "../components/Styled/Container";
 import { sequence } from "./utils";
 import Mock from "../mock";
@@ -21,7 +23,9 @@ class App extends Component {
     const { measurements, indicators } = this.state;
     return (
       <Container>
+        <Geography measurements={measurements} />
         <Measurements measurements={measurements} indicators={indicators} />
+        <Weather indicators={indicators} />
       </Container>
     );
   }
