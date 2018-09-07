@@ -10,7 +10,7 @@ import { sequence } from "./utils";
 import Mock from "../mock";
 
 class App extends Component {
-  state = { ready: false };
+  state = { ready: false, search: "" };
 
   componentDidMount() {
     // Later on replace Promise.resolve(Mock) with axios get
@@ -22,11 +22,25 @@ class App extends Component {
       )
       .then(() => setTimeout(() => this.setState({ ready: true }), 5000));
   }
+
+  handleChange = event => {
+    this.setState({ search: event.target.value });
+  };
+
+  handleSubmit = event => {
+    alert("A name was submitted: " + this.state.search);
+    event.preventDefault();
+  };
+
   render() {
-    const { measurements, indicators, ready } = this.state;
+    const { measurements, indicators, ready, search } = this.state;
     return (
       <Fragment>
-        <Search />
+        <Search
+          search={search}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
         {ready ? (
           <Container>
             <Geography measurements={measurements} />
