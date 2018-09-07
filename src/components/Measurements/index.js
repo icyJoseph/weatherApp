@@ -1,6 +1,5 @@
 import React from "react";
-import { FlexSection } from "../Styled/FlexSection";
-import { SvgContainer } from "../Styled/SvgContainer";
+import { FlexSection, SvgContainer } from "../Styled";
 import { Thermometer } from "../../logos/thermometer";
 
 const K2C = temp => temp - 273;

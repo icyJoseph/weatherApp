@@ -1,6 +1,5 @@
 import React from "react";
-import { FlexSection } from "../Styled/FlexSection";
-import { SvgContainer } from "../Styled/SvgContainer";
+import { FlexSection, SvgContainer } from "../Styled";
 
 import { Sun } from "../../logos/sun";
 import { Snowflake } from "../../logos/snowflake";

@@ -1,5 +1,5 @@
 import React from "react";
-import { FlexSection } from "../Styled/FlexSection";
+import { FlexSection } from "../Styled";
 
 const capitalize = text => text.charAt(0).toUpperCase() + text.slice(1);
 
