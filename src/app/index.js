@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Geography } from "../components/Geography";
+import { Emoji } from "../components/Emoji";
 import { Measurements } from "../components/Measurements";
 import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
@@ -8,7 +9,7 @@ import { Container, Image } from "../components/Styled";
 import { weatherPipe } from "../api";
 import { getHistory, updateHistory, existingValidData } from "../utils";
 import { debounce } from "../helpers";
-import { weatherApp } from "../constants";
+import { weatherApp, FailureEmojis } from "../constants";
 
 import Splash from "../logos/magicwand.png";
 
@@ -100,8 +101,14 @@ class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        {error && <div>Error...</div>}
-        {!weather && <Image src={Splash} width="200px" height="auto" />}
+        {error &&
+          !loading &&
+          FailureEmojis.map(({ label, symbol }) => (
+            <Emoji key={label} label={label} symbol={symbol} />
+          ))}
+        {!weather &&
+          !error &&
+          !loading && <Image src={Splash} width="200px" height="auto" />}
         {loading && <Loading type="balls" color="white" />}
         {weather && (
           <Container>

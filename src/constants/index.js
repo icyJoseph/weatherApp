@@ -18,3 +18,9 @@ export const SearchField = {
   PLACEHOLDER: "Search here...",
   BUTTON: "Go!"
 };
+
+export const FailureEmojis = [
+  { symbol: "🤬", label: "swearing" },
+  { symbol: "👨‍💻", label: "programmer" },
+  { symbol: "🤖", label: "robot" }
+];
