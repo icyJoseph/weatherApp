@@ -7,17 +7,25 @@ import { Cloudy } from "../../logos/cloudy";
 import { Lightning } from "../../logos/lightning";
 import { Rainy } from "../../logos/rainy";
 
-const selector = {
-  Clear: Sun,
-  Clouds: Cloudy,
-  Rain: Rainy,
-  Snow: Snowflake,
-  ThunderStorm: Lightning
+const selector = icon => {
+  switch (icon) {
+    case "clear":
+      return Sun;
+    case "clouds":
+      return Cloudy;
+    case "rain":
+      return Rainy;
+    case "snow":
+      return Snowflake;
+    case "thunderstorm":
+      return Lightning;
+    default:
+      return Sun;
+  }
 };
 
-export const Weather = ({ indicators = {} }) => {
-  const { main } = indicators;
-  const Component = selector[main];
+export const Weather = ({ currently: { icon = "" } }) => {
+  const Component = selector(icon);
 
   return (
     <FlexSection
