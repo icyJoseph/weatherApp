@@ -1,0 +1,19 @@
+###
+POST http://localhost:1337/geo
+Content-Type: application/json
+
+{
+    "address": "thorburnsgatan"
+}
+
+###
+GET http://localhost:1337/geo
+
+
+###
+POST http://localhost:1337/test
+Content-Type: application/json
+
+{
+    "address": "test"
+}
