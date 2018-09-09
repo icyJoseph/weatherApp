@@ -5,7 +5,7 @@ import { Measurements } from "../components/Measurements";
 import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
-import { Container, Image } from "../components/Styled";
+import { WeatherCard, Image } from "../components/Styled";
 import { weatherPipe } from "../api";
 import { getHistory, updateHistory, existingValidData } from "../utils";
 import { debounce } from "../helpers";
@@ -113,11 +113,11 @@ class App extends Component {
           )}
         {loading && <Loading type="balls" color="white" />}
         {weather && (
-          <Container>
+          <WeatherCard>
             <Geography {...weather} />
             <Measurements {...weather} />
             <Weather {...weather} />
-          </Container>
+          </WeatherCard>
         )}
       </Fragment>
     );

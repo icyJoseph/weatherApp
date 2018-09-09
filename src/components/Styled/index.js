@@ -12,7 +12,7 @@ const fadeIn = keyframes`
   }
 `;
 
-export const Container = styled.div`
+export const WeatherCard = styled.div`
   background: #f5f5f5;
   display: flex;
   justify-content: center;
