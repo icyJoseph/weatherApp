@@ -10,27 +10,46 @@ import { Container } from "../components/Styled";
 
 import { debounce } from "../helpers";
 
+const weatherApp = "weather-app";
+
 class App extends Component {
-  state = { search: "", error: null };
+  state = { search: "", error: null, history: [] };
 
   componentDidMount() {
-    const cache = localStorage.getItem("weather-app");
-    return cache && this.setWeather(JSON.parse(cache));
+    const history = localStorage.getItem(weatherApp);
+    return history && this.setHistory(JSON.parse(history));
   }
 
   saveWeather = (weather, search) => {
-    const cache = localStorage.getItem("weather-app");
-    const storage = cache ? JSON.parse(cache) : {};
+    const cache = localStorage.getItem(weatherApp);
+    const storage = cache ? JSON.parse(cache) : [];
+    const toSave = [{ ...weather, query: search }];
+    const existingIndex = storage.findIndex(({ query }) => query === search);
 
-    localStorage.setItem(
-      "weather-app",
-      JSON.stringify({ ...storage, [search]: weather })
-    );
+    const history =
+      existingIndex === -1
+        ? toSave.concat(storage)
+        : toSave.concat(
+            storage
+              .slice(0, existingIndex)
+              .concat(storage.slice(existingIndex + 1))
+          );
+
+    localStorage.setItem(weatherApp, JSON.stringify(history));
+    this.setHistory(history);
     return weather;
   };
 
   setWeather = weather => {
     return this.setState(prevState => ({ ...prevState, weather, error: null }));
+  };
+
+  setHistory = history => {
+    return this.setState(prevState => ({
+      ...prevState,
+      history,
+      error: null
+    }));
   };
 
   handleChange = event => {
@@ -41,41 +60,41 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
-    const cache = localStorage.getItem("weather-app");
-    const storage = cache ? JSON.parse(cache) : {};
+    if (this.state.search === "") {
+      return null;
+    }
+    const cache = localStorage.getItem(weatherApp);
+    const history = cache ? JSON.parse(cache) : [];
     const now = new Date().getTime();
-    const storeHasValidData = storage[this.state.search]
-      ? storage[this.state.search].expiry < now
-      : false;
+    const { search } = this.state;
+    const storeHasValidData = history.find(
+      ({ query, expiry }) => query === search && expiry < now
+    );
 
     return storeHasValidData || this.fetchWeather(this.state.search);
   };
 
-  weatherPipe = search => {
+  weatherPipe = () => {
     const test = "http://localhost:1337/test";
+    const { search } = this.state;
     return axios
-      .post(
-        test,
-        { address: search },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        }
-      )
+      .post(test, { address: search })
+      .then(this.extractData)
       .then(this.addExpiry)
       .then(res => this.saveWeather(res, search))
       .then(this.setWeather)
       .catch(error => this.setState({ error }));
   };
 
-  fetchWeather = debounce(search => this.weatherPipe(search), 1000);
+  fetchWeather = debounce(this.weatherPipe, 1000);
 
   addExpiry = weather => {
     const now = new Date().getTime();
     return { ...weather, expiry: now + 1000 };
+  };
+
+  extractData = ({ data }) => {
+    return data;
   };
 
   render() {
@@ -91,8 +110,8 @@ class App extends Component {
         {weather ? (
           <Container>
             <Geography {...weather} />
-            {/* <Measurements measurements={measurements} indicators={indicators} /> */}
-            {/* <Weather indicators={indicators} /> */}
+            <Measurements {...weather} />
+            <Weather {...weather} />
           </Container>
         ) : (
           <Loading type="balls" color="white" />
