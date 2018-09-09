@@ -14,8 +14,8 @@ const Description = ({ description = "" }) => (
   </FlexSection>
 );
 
-export const Geography = ({ measurements = {} }) => {
-  const { name, description } = measurements;
+export const Geography = ({ weather }) => {
+  const { city, street } = weather;
   return (
     <FlexSection
       flex={3}
@@ -23,8 +23,8 @@ export const Geography = ({ measurements = {} }) => {
       justifyContent="center"
       alignItems="center"
     >
-      <City name={name} />
-      <Description description={description} />
+      <City name={city} />
+      <Description description={street} />
     </FlexSection>
   );
 };

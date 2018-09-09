@@ -10,7 +10,7 @@ export const Search = ({ search, handleSubmit, handleChange }) => {
         value={search}
         onChange={handleChange}
       />
-      <Button>Go!</Button>
+      <Button onClick={handleSubmit}>Go!</Button>
     </Form>
   );
 };

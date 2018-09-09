@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import axios from "axios";
 
 import { Geography } from "../components/Geography";
 import { Measurements } from "../components/Measurements";
@@ -6,41 +7,79 @@ import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
 import { Container } from "../components/Styled";
-import { sequence } from "./utils";
 
 import { debounce } from "../helpers";
 
-import Mock from "../mock";
-
 class App extends Component {
-  state = { ready: false, search: "" };
+  state = { search: "", error: null };
 
   componentDidMount() {
-    // Later on replace Promise.resolve(Mock) with axios get
-
-    return Promise.resolve(Mock)
-      .then(sequence)
-      .then(({ measurements, indicators }) =>
-        this.setState({ measurements, indicators })
-      )
-      .then(() => setTimeout(() => this.setState({ ready: true }), 5000));
+    const cache = localStorage.getItem("weather-app");
+    return cache && this.setWeather(JSON.parse(cache));
   }
 
-  handleChange = event => {
-    this.setState({ search: event.target.value });
+  saveWeather = (weather, search) => {
+    const cache = localStorage.getItem("weather-app");
+    const storage = cache ? JSON.parse(cache) : {};
+
+    localStorage.setItem(
+      "weather-app",
+      JSON.stringify({ ...storage, [search]: weather })
+    );
+    return weather;
   };
 
-  makeRequest = debounce(() => {
-    return console.log("A name was submitted: " + this.state.search);
-  }, 1000);
+  setWeather = weather => {
+    return this.setState(prevState => ({ ...prevState, weather, error: null }));
+  };
+
+  handleChange = event => {
+    return this.setState({
+      search: event.target.value
+    });
+  };
 
   handleSubmit = event => {
     event.preventDefault();
-    return this.makeRequest();
+
+    const cache = localStorage.getItem("weather-app");
+    const storage = cache ? JSON.parse(cache) : {};
+    const now = new Date().getTime();
+    const storeHasValidData = storage[this.state.search]
+      ? storage[this.state.search].expiry < now
+      : false;
+
+    return storeHasValidData || this.fetchWeather(this.state.search);
+  };
+
+  weatherPipe = search => {
+    const test = "http://localhost:1337/test";
+    return axios
+      .post(
+        test,
+        { address: search },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      )
+      .then(this.addExpiry)
+      .then(res => this.saveWeather(res, search))
+      .then(this.setWeather)
+      .catch(error => this.setState({ error }));
+  };
+
+  fetchWeather = debounce(search => this.weatherPipe(search), 1000);
+
+  addExpiry = weather => {
+    const now = new Date().getTime();
+    return { ...weather, expiry: now + 1000 };
   };
 
   render() {
-    const { measurements, indicators, ready, search } = this.state;
+    const { weather, search, error } = this.state;
     return (
       <Fragment>
         <Search
@@ -48,11 +87,12 @@ class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        {ready ? (
+        {error && <div>Error...</div>}
+        {weather ? (
           <Container>
-            <Geography measurements={measurements} />
-            <Measurements measurements={measurements} indicators={indicators} />
-            <Weather indicators={indicators} />
+            <Geography {...weather} />
+            {/* <Measurements measurements={measurements} indicators={indicators} /> */}
+            {/* <Weather indicators={indicators} /> */}
           </Container>
         ) : (
           <Loading type="balls" color="white" />
