@@ -2,11 +2,15 @@ import React from "react";
 import { FlexSection, SvgContainer } from "../Styled";
 import { Thermometer } from "../../logos/thermometer";
 
-const K2C = temp => temp - 273;
+export const Measurements = ({ currently = {}, daily: { data = [] } }) => {
+  const { temperature } = currently;
 
-export const Measurements = ({ measurements = {} }) => {
-  const { temp, max, min } = measurements;
-  const [celsius, maxTemp, minTemp] = [temp, max, min].map(K2C);
+  const [{ temperatureHigh, temperatureLow }] = data;
+  const [celsius, maxTemp, minTemp] = [
+    temperature,
+    temperatureHigh,
+    temperatureLow
+  ];
 
   return (
     <FlexSection flex={3} style={{ paddingTop: 40, margin: "auto 20px" }}>
