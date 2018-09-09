@@ -13,7 +13,7 @@ export const Measurements = ({ currently = {}, daily: { data = [] } }) => {
   ];
 
   return (
-    <FlexSection flex={3} style={{ paddingTop: 40, margin: "auto 20px" }}>
+    <FlexSection flex={3} style={{ margin: "auto 20px" }}>
       <SvgContainer width="100px" height="100px" viewBox="0 0 300 300">
         <Thermometer celsius={celsius} />
       </SvgContainer>
