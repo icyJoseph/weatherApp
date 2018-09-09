@@ -4,5 +4,11 @@ import "./index.css";
 import App from "./app";
 import registerServiceWorker from "./registerServiceWorker";
 
+window.oncontextmenu = function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  return false;
+};
+
 ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();
