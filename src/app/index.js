@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-
 import { Geography } from "../components/Geography";
 import { Measurements } from "../components/Measurements";
 import { Loading } from "../components/Loading";
@@ -7,10 +6,8 @@ import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
 import { Container } from "../components/Styled";
 import { weatherPipe } from "../api";
-import { getHistory, updateHistory } from "../utils";
-
+import { getHistory, updateHistory, existingValidData } from "../utils";
 import { debounce } from "../helpers";
-
 import { weatherApp } from "../constants";
 
 class App extends Component {
@@ -57,22 +54,20 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if (this.state.search === "") {
-      return null;
-    }
-    const cache = localStorage.getItem(weatherApp);
-    const history = cache ? JSON.parse(cache) : [];
-    const now = new Date().getTime();
-    const { search } = this.state;
-    const existingValidWeatherData = history.find(
-      ({ query, expiry }) => query === search && expiry < now
-    );
 
-    return existingValidWeatherData
-      ? this.setWeather(existingValidWeatherData)
-      : this.fetchWeather(this.state.search, this.updateState, this.setError);
+    const { search } = this.state;
+
+    if (search === "") return null;
+
+    const history = getHistory(weatherApp);
+    const existingValidWeatherData = existingValidData(history, search);
+
+    if (existingValidData) return this.setWeather(existingValidWeatherData);
+
+    return this.fetchWeather(search, this.updateState, this.setError);
   };
 
+  // debounce fetch
   fetchWeather = debounce(weatherPipe, 1000);
 
   render() {

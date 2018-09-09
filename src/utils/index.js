@@ -20,3 +20,8 @@ export const updateHistory = (storage, history, newItem) => {
 
   return updatedHistory;
 };
+
+export const existingValidData = (history, search) => {
+  const now = new Date().getTime();
+  return history.find(({ query, expiry }) => query === search && expiry < now);
+};
