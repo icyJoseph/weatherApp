@@ -14,8 +14,7 @@ const Description = ({ description = "" }) => (
   </FlexSection>
 );
 
-export const Geography = ({ weather }) => {
-  const { city, street } = weather;
+export const Geography = ({ city = "", street = "" }) => {
   return (
     <FlexSection
       flex={3}
