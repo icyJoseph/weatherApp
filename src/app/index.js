@@ -67,11 +67,13 @@ class App extends Component {
     const history = cache ? JSON.parse(cache) : [];
     const now = new Date().getTime();
     const { search } = this.state;
-    const storeHasValidData = history.find(
+    const existingValidWeatherData = history.find(
       ({ query, expiry }) => query === search && expiry < now
     );
 
-    return storeHasValidData || this.fetchWeather(this.state.search);
+    return existingValidWeatherData
+      ? this.setWeather(existingValidWeatherData)
+      : this.fetchWeather(this.state.search);
   };
 
   weatherPipe = () => {
