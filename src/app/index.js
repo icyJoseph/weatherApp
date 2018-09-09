@@ -8,7 +8,7 @@ import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
 import { Container } from "../components/Styled";
 
-import { getHistory } from "../utils";
+import { getHistory, updateHistory } from "../utils";
 
 import { debounce } from "../helpers";
 
@@ -22,23 +22,11 @@ class App extends Component {
     return getHistory(weatherApp, this.setHistory);
   }
 
-  saveWeather = (weather, search) => {
-    const cache = localStorage.getItem(weatherApp);
-    const storage = cache ? JSON.parse(cache) : [];
-    const toSave = [{ ...weather, query: search }];
-    const existingIndex = storage.findIndex(({ query }) => query === search);
-
-    const history =
-      existingIndex === -1
-        ? toSave.concat(storage)
-        : toSave.concat(
-            storage
-              .slice(0, existingIndex)
-              .concat(storage.slice(existingIndex + 1))
-          );
-
-    localStorage.setItem(weatherApp, JSON.stringify(history));
-    this.setHistory(history);
+  saveHistory = (weather, search) => {
+    const toSave = { ...weather, query: search };
+    const history = getHistory(weatherApp);
+    const updatedHistory = updateHistory(weatherApp, history, toSave);
+    this.setHistory(updatedHistory);
     return weather;
   };
 
@@ -85,7 +73,7 @@ class App extends Component {
       .post(test, { address: search })
       .then(this.extractData)
       .then(this.addExpiry)
-      .then(res => this.saveWeather(res, search))
+      .then(res => this.saveHistory(res, search))
       .then(this.setWeather)
       .catch(error => this.setState({ error }));
   };
