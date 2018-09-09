@@ -8,7 +8,7 @@ const low = 176;
 const max = 150;
 const min = -50;
 
-const compareTemp = temp => {
+const clamp = temp => {
   if (temp > low) return low;
   if (temp < high) return high;
   return temp;
@@ -19,7 +19,7 @@ const k = high - m * max;
 
 export const Thermometer = ({ celsius }) => {
   // y = m * x + b -> adjusting for SVG display
-  const temp = compareTemp(celsius * m + k) || 100;
+  const temp = clamp(celsius * m + k) || 100;
   const { r, g, b, a } = mapColorToTemp(celsius);
   const color = `rgb(${r}, ${g}, ${b}, ${a})`;
 
