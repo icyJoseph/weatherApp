@@ -9,25 +9,27 @@ import { Lightning } from "../../logos/lightning";
 import { Rainy } from "../../logos/rainy";
 import { WindyDay } from "../../logos/windyDay";
 
+import { Icons } from "../../constants";
+
 const selector = icon => {
   switch (icon) {
-    case "clear-day":
+    case Icons.CLEAR_DAY:
       return Sun;
-    case "clear-night":
+    case Icons.CLEAR_NIGHT:
       return Moon;
-    case "wind":
+    case Icons.WIND:
       return WindyDay;
-    case "fog":
-    case "cloudy":
-    case "partly-cloudy-day":
-    case "partly-cloudy-night":
+    case Icons.FOG:
+    case Icons.CLOUDY:
+    case Icons.PARTLY_CLOUDY_DAY:
+    case Icons.PARTLY_CLOUDY_NIGHT:
       return Cloudy;
-    case "rain":
+    case Icons.RAIN:
       return Rainy;
-    case "snow":
-    case "sleet":
+    case Icons.SNOW:
+    case Icons.SLEET:
       return Snowflake;
-    case "thunderstorm":
+    case Icons.THUNDERSTORM:
       return Lightning;
     default:
       return Sun;

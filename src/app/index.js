@@ -10,7 +10,7 @@ import { Container } from "../components/Styled";
 
 import { debounce } from "../helpers";
 
-const weatherApp = "weather-app";
+import { weatherApp } from "../constants";
 
 class App extends Component {
   state = { search: "", error: null, history: [] };
