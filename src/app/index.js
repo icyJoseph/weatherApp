@@ -4,14 +4,22 @@ import { Measurements } from "../components/Measurements";
 import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
-import { Container } from "../components/Styled";
+import { Container, Image } from "../components/Styled";
 import { weatherPipe } from "../api";
 import { getHistory, updateHistory, existingValidData } from "../utils";
 import { debounce } from "../helpers";
 import { weatherApp } from "../constants";
 
+import Splash from "../logos/magicwand.png";
+
 class App extends Component {
-  state = { query: "", weather: null, error: null, history: [] };
+  state = {
+    query: "",
+    weather: null,
+    error: null,
+    history: [],
+    loading: false
+  };
 
   componentDidMount() {
     // if no history, then it remains at []
@@ -26,13 +34,19 @@ class App extends Component {
     return this.setState(prevState => ({
       ...prevState,
       history: updatedHistory,
-      weather
+      weather,
+      loading: false
     }));
   };
 
   // setters
   setWeather = weather => {
-    return this.setState(prevState => ({ ...prevState, weather, error: null }));
+    return this.setState(prevState => ({
+      ...prevState,
+      weather,
+      error: null,
+      loading: false
+    }));
   };
 
   setHistory = history => {
@@ -43,7 +57,8 @@ class App extends Component {
     }));
   };
 
-  setError = error => this.setState({ error });
+  setError = error => this.setState({ error, loading: false });
+  setLoading = () => this.setState({ loading: true });
 
   // handlers
   handleChange = event => {
@@ -58,21 +73,26 @@ class App extends Component {
     const { query } = this.state;
 
     if (query === "") return null;
-
+    this.setLoading();
     const history = getHistory(weatherApp);
     const existingValidWeatherData = existingValidData(history, query);
 
     if (existingValidWeatherData)
       return this.setWeather(existingValidWeatherData);
 
-    return this.fetchWeather(query, this.updateState, this.setError);
+    return this.fetchWeather(
+      query,
+      this.updateState,
+      this.setError,
+      this.setLoading
+    );
   };
 
   // debounce fetch
   fetchWeather = debounce(weatherPipe, 1000);
 
   render() {
-    const { weather, query, error } = this.state;
+    const { weather, query, error, loading } = this.state;
     return (
       <Fragment>
         <Search
@@ -81,14 +101,14 @@ class App extends Component {
           handleSubmit={this.handleSubmit}
         />
         {error && <div>Error...</div>}
-        {weather ? (
+        {!weather && <Image src={Splash} width="200px" height="auto" />}
+        {loading && <Loading type="balls" color="white" />}
+        {weather && (
           <Container>
             <Geography {...weather} />
             <Measurements {...weather} />
             <Weather {...weather} />
           </Container>
-        ) : (
-          <Loading type="balls" color="white" />
         )}
       </Fragment>
     );
