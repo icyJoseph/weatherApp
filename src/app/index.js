@@ -11,7 +11,7 @@ import { debounce } from "../helpers";
 import { weatherApp } from "../constants";
 
 class App extends Component {
-  state = { query: "", error: null, history: [] };
+  state = { query: "", weather: null, error: null, history: [] };
 
   componentDidMount() {
     // if no history, then it remains at []
