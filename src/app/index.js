@@ -8,6 +8,8 @@ import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
 import { Container } from "../components/Styled";
 
+import { getHistory } from "../utils";
+
 import { debounce } from "../helpers";
 
 import { weatherApp } from "../constants";
@@ -16,8 +18,8 @@ class App extends Component {
   state = { search: "", error: null, history: [] };
 
   componentDidMount() {
-    const history = localStorage.getItem(weatherApp);
-    return history && this.setHistory(JSON.parse(history));
+    // if no history, then it remains at []
+    return getHistory(weatherApp, this.setHistory);
   }
 
   saveWeather = (weather, search) => {
