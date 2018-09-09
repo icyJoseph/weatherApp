@@ -70,6 +70,10 @@ export const Input = styled.input`
   ::placeholder {
     color: #e9e9e9;
   }
+
+  @media (max-width: 600px) {
+    font-size: 16pt;
+  }
 `;
 
 export const Button = styled.a`
@@ -87,6 +91,10 @@ export const Button = styled.a`
   color: #f8f8f8;
   border: 2px solid #f8f8f8;
   font-size: 24pt;
+
+  @media (max-width: 600px) {
+    font-size: 16pt;
+  }
 `;
 
 export const LoadingWrapper = styled.div`
