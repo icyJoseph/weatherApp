@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import axios from "axios";
 
 import { Geography } from "../components/Geography";
 import { Measurements } from "../components/Measurements";
@@ -7,7 +6,7 @@ import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
 import { Container } from "../components/Styled";
-
+import { weatherPipe } from "../api";
 import { getHistory, updateHistory } from "../utils";
 
 import { debounce } from "../helpers";
@@ -22,14 +21,19 @@ class App extends Component {
     return getHistory(weatherApp, this.setHistory);
   }
 
-  saveHistory = (weather, search) => {
+  // update state after a search
+  updateState = (weather, search) => {
     const toSave = { ...weather, query: search };
     const history = getHistory(weatherApp);
     const updatedHistory = updateHistory(weatherApp, history, toSave);
-    this.setHistory(updatedHistory);
-    return weather;
+    return this.setState(prevState => ({
+      ...prevState,
+      history: updatedHistory,
+      weather
+    }));
   };
 
+  // setters
   setWeather = weather => {
     return this.setState(prevState => ({ ...prevState, weather, error: null }));
   };
@@ -42,6 +46,9 @@ class App extends Component {
     }));
   };
 
+  setError = error => this.setState({ error });
+
+  // handlers
   handleChange = event => {
     return this.setState({
       search: event.target.value.toLowerCase()
@@ -63,31 +70,10 @@ class App extends Component {
 
     return existingValidWeatherData
       ? this.setWeather(existingValidWeatherData)
-      : this.fetchWeather(this.state.search);
+      : this.fetchWeather(this.state.search, this.updateState, this.setError);
   };
 
-  weatherPipe = () => {
-    const test = "http://localhost:1337/test";
-    const { search } = this.state;
-    return axios
-      .post(test, { address: search })
-      .then(this.extractData)
-      .then(this.addExpiry)
-      .then(res => this.saveHistory(res, search))
-      .then(this.setWeather)
-      .catch(error => this.setState({ error }));
-  };
-
-  fetchWeather = debounce(this.weatherPipe, 1000);
-
-  addExpiry = weather => {
-    const now = new Date().getTime();
-    return { ...weather, expiry: now + 1000 };
-  };
-
-  extractData = ({ data }) => {
-    return data;
-  };
+  fetchWeather = debounce(weatherPipe, 1000);
 
   render() {
     const { weather, search, error } = this.state;
