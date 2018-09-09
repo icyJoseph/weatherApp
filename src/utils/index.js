@@ -7,7 +7,7 @@ export const getHistory = (item, cb) => {
 };
 
 export const updateHistory = (storage, history, newItem) => {
-  const index = history.findIndex(({ query }) => query === newItem.search);
+  const index = history.findIndex(({ query }) => query === newItem.query);
   const newHead = [newItem];
   const updatedHistory =
     index === -1
@@ -21,7 +21,9 @@ export const updateHistory = (storage, history, newItem) => {
   return updatedHistory;
 };
 
-export const existingValidData = (history, search) => {
+export const existingValidData = (history, currentQuery) => {
   const now = new Date().getTime();
-  return history.find(({ query, expiry }) => query === search && expiry < now);
+  return history.find(
+    ({ query, expiry }) => query === currentQuery && expiry < now
+  );
 };

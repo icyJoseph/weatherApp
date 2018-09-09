@@ -5,13 +5,13 @@ export const addExpiry = weather => {
   return { ...weather, expiry: now + 1000 };
 };
 
-export const weatherPipe = (search, cb, errCb) => {
+export const weatherPipe = (query, cb, errCb) => {
   const url = "http://localhost:1337/test";
 
   return axios
-    .post(url, { address: search })
+    .post(url, { address: query })
     .then(({ data }) => data)
     .then(addExpiry)
-    .then(res => cb(res, search))
+    .then(res => cb(res, query))
     .catch(error => errCb({ error }));
 };

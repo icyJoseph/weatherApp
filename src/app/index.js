@@ -11,7 +11,7 @@ import { debounce } from "../helpers";
 import { weatherApp } from "../constants";
 
 class App extends Component {
-  state = { search: "", error: null, history: [] };
+  state = { query: "", error: null, history: [] };
 
   componentDidMount() {
     // if no history, then it remains at []
@@ -19,8 +19,8 @@ class App extends Component {
   }
 
   // update state after a search
-  updateState = (weather, search) => {
-    const toSave = { ...weather, query: search };
+  updateState = (weather, query) => {
+    const toSave = { ...weather, query };
     const history = getHistory(weatherApp);
     const updatedHistory = updateHistory(weatherApp, history, toSave);
     return this.setState(prevState => ({
@@ -48,34 +48,35 @@ class App extends Component {
   // handlers
   handleChange = event => {
     return this.setState({
-      search: event.target.value.toLowerCase()
+      query: event.target.value.toLowerCase()
     });
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    const { search } = this.state;
+    const { query } = this.state;
 
-    if (search === "") return null;
+    if (query === "") return null;
 
     const history = getHistory(weatherApp);
-    const existingValidWeatherData = existingValidData(history, search);
+    const existingValidWeatherData = existingValidData(history, query);
 
-    if (existingValidData) return this.setWeather(existingValidWeatherData);
+    if (existingValidWeatherData)
+      return this.setWeather(existingValidWeatherData);
 
-    return this.fetchWeather(search, this.updateState, this.setError);
+    return this.fetchWeather(query, this.updateState, this.setError);
   };
 
   // debounce fetch
   fetchWeather = debounce(weatherPipe, 1000);
 
   render() {
-    const { weather, search, error } = this.state;
+    const { weather, query, error } = this.state;
     return (
       <Fragment>
         <Search
-          search={search}
+          query={query}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
