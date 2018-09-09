@@ -108,7 +108,9 @@ class App extends Component {
           ))}
         {!weather &&
           !error &&
-          !loading && <Image src={Splash} width="200px" height="auto" />}
+          !loading && (
+            <Image src={Splash} width="200px" height="auto" draggable={false} />
+          )}
         {loading && <Loading type="balls" color="white" />}
         {weather && (
           <Container>
