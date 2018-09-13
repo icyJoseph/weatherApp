@@ -35,7 +35,7 @@ class App extends Component {
     return this.setState(prevState => ({
       ...prevState,
       history: updatedHistory,
-      weather,
+      weather: toSave,
       loading: false
     }));
   };
@@ -112,13 +112,15 @@ class App extends Component {
             <Image src={Splash} width="200px" height="auto" draggable={false} />
           )}
         {loading && <Loading type="balls" color="white" />}
-        {weather && (
-          <WeatherCard>
-            <Geography {...weather} />
-            <Measurements {...weather} />
-            <Weather {...weather} />
-          </WeatherCard>
-        )}
+        {weather &&
+          !error &&
+          !loading && (
+            <WeatherCard>
+              <Geography {...weather} />
+              <Measurements {...weather} />
+              <Weather {...weather} />
+            </WeatherCard>
+          )}
       </Fragment>
     );
   }
