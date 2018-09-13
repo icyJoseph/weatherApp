@@ -6,8 +6,14 @@ import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
 import { WeatherCard, Image } from "../components/Styled";
-import { weatherPipe } from "../api";
-import { getHistory, updateHistory, existingValidData } from "../utils";
+import { byAddressPipe } from "../api";
+import {
+  getHistory,
+  updateHistory,
+  existingValidData,
+  checkGeoLocationPermission,
+  reportGeoLocation
+} from "../utils";
 import { debounce } from "../helpers";
 import { weatherApp, FailureEmojis } from "../constants";
 
@@ -19,13 +25,26 @@ class App extends Component {
     weather: null,
     error: null,
     history: [],
-    loading: false
+    loading: false,
+    permission: "",
+    lat: null,
+    lng: null
   };
 
   componentDidMount() {
     // if no history, then it remains at []
-    return getHistory(weatherApp, this.setHistory);
+    return (
+      checkGeoLocationPermission(this.setGeoLocationPermission) ||
+      getHistory(weatherApp, this.setHistory)
+    );
   }
+
+  setGeoLocationPermission = state => this.setState({ permission: state });
+
+  setLocationCoordinates = (lat, lng) => this.setState({ lat, lng });
+
+  getGeoLocation = () =>
+    reportGeoLocation(this.setLocationCoordinates, this.setError);
 
   // update state after a search
   updateState = (weather, query) => {
@@ -81,7 +100,7 @@ class App extends Component {
     if (existingValidWeatherData)
       return this.setWeather(existingValidWeatherData);
 
-    return this.fetchWeather(
+    return this.fetchWeatherByAddress(
       query,
       this.updateState,
       this.setError,
@@ -90,10 +109,13 @@ class App extends Component {
   };
 
   // debounce fetch
-  fetchWeather = debounce(weatherPipe, 1000);
+  fetchWeatherByAddress = debounce(byAddressPipe, 1000);
 
   render() {
     const { weather, query, error, loading } = this.state;
+    const shouldShowFailureEmoji = error && !loading;
+    const shouldShowMagicWand = !weather && !error && !loading;
+    const shouldShowWeatherCard = weather && !error && !loading;
     return (
       <Fragment>
         <Search
@@ -101,26 +123,27 @@ class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        {error &&
-          !loading &&
+        {shouldShowFailureEmoji &&
           FailureEmojis.map(({ label, symbol }) => (
             <Emoji key={label} label={label} symbol={symbol} />
           ))}
-        {!weather &&
-          !error &&
-          !loading && (
-            <Image src={Splash} width="200px" height="auto" draggable={false} />
-          )}
+        {shouldShowMagicWand && (
+          <Image
+            src={Splash}
+            width="200px"
+            height="auto"
+            draggable={false}
+            onClick={this.getGeoLocation}
+          />
+        )}
         {loading && <Loading type="balls" color="white" />}
-        {weather &&
-          !error &&
-          !loading && (
-            <WeatherCard>
-              <Geography {...weather} />
-              <Measurements {...weather} />
-              <Weather {...weather} />
-            </WeatherCard>
-          )}
+        {shouldShowWeatherCard && (
+          <WeatherCard>
+            <Geography {...weather} />
+            <Measurements {...weather} />
+            <Weather {...weather} />
+          </WeatherCard>
+        )}
       </Fragment>
     );
   }

@@ -27,3 +27,26 @@ export const existingValidData = (history, currentQuery) => {
     ({ query, expiry }) => query === currentQuery && expiry < now
   );
 };
+
+export const checkGeoLocationPermission = cb => {
+  if (navigator.permissions) {
+    navigator.permissions.query({ name: "geolocation" }).then(result => {
+      result.onchange = () => cb(result.state);
+      return cb(result.state);
+    });
+  }
+};
+
+export const reportGeoLocation = (cb, err) => {
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+
+  return navigator.geolocation.getCurrentPosition(
+    ({ coords }) => cb(coords.latitude, coords.longitude),
+    err,
+    options
+  );
+};
