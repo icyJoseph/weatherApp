@@ -1,15 +1,16 @@
 import axios from "axios";
 
+const endPoint =
+  "https://wt-eb857ce9bac13bdd2efcf8e93fb9fdcc-0.sandbox.auth0-extend.com/weather-express/geo";
+
 export const addExpiry = weather => {
   const now = new Date().getTime();
   return { ...weather, expiry: now + 1000 };
 };
 
 export const weatherPipe = (query, cb, errCb) => {
-  const url = "http://localhost:1337/test";
-
   return axios
-    .post(url, { address: query })
+    .post(endPoint, { address: query })
     .then(({ data }) => data)
     .then(addExpiry)
     .then(res => cb(res, query))
