@@ -3,7 +3,7 @@ POST http://localhost:1337/geo
 Content-Type: application/json
 
 {
-    "address": "thorburnsgatan"
+    "address": "lindholmspiren"
 }
 
 ###
@@ -16,4 +16,12 @@ Content-Type: application/json
 
 {
     "address": "test"
+}
+
+###
+POST https://wt-eb857ce9bac13bdd2efcf8e93fb9fdcc-0.sandbox.auth0-extend.com/weather-express/geo
+Content-Type: application/json
+
+{
+    "address": "lindholmspiren"
 }
