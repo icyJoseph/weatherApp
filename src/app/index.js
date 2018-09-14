@@ -63,7 +63,8 @@ class App extends Component {
       ...prevState,
       history: updatedHistory,
       weather: toSave,
-      loading: false
+      loading: false,
+      error: null
     }));
   };
 
