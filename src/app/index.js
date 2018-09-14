@@ -6,7 +6,7 @@ import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
 import { WeatherCard, Image } from "../components/Styled";
-import { byAddressPipe } from "../api";
+import { byAddressPipe, byLatLngPipe } from "../api";
 import {
   getHistory,
   updateHistory,
@@ -44,7 +44,15 @@ class App extends Component {
   setLocationCoordinates = (lat, lng) => this.setState({ lat, lng });
 
   getGeoLocation = () =>
-    reportGeoLocation(this.setLocationCoordinates, this.setError);
+    reportGeoLocation(this.setLocationCoordinates, this.setError).then(() => {
+      const { lat, lng } = this.state;
+      this.setLoading();
+      return this.fetchWeatherByLatLng(
+        { lat, lng },
+        this.updateState,
+        this.setError
+      );
+    });
 
   // update state after a search
   updateState = (weather, query) => {
@@ -110,6 +118,7 @@ class App extends Component {
 
   // debounce fetch
   fetchWeatherByAddress = debounce(byAddressPipe, 1000);
+  fetchWeatherByLatLng = debounce(byLatLngPipe, 1000);
 
   render() {
     const { weather, query, error, loading } = this.state;
