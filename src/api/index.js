@@ -1,9 +1,8 @@
 import axios from "axios";
 
-const byAddressEndPoint =
-  "https://wt-eb857ce9bac13bdd2efcf8e93fb9fdcc-0.sandbox.auth0-extend.com/weather-express/byAddress";
-const byLatLngEndPoint =
-  "https://wt-eb857ce9bac13bdd2efcf8e93fb9fdcc-0.sandbox.auth0-extend.com/weather-express/byLatLng";
+const byAddressEndPoint = `${process.env.REACT_APP_ENDPOINT}/byAddress`;
+
+const byLatLngEndPoint = `${process.env.REACT_APP_ENDPOINT}/byLatLng`;
 
 export const addExpiry = weather => {
   const now = new Date().getTime();
