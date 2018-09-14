@@ -116,6 +116,10 @@ export const Container = styled.div`
   top: 33%;
 `;
 
+export const EmojiContainer = styled.div`
+  text-align: center;
+`;
+
 export const Image = styled.img`
   border-radius: 50%;
   box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.4);

@@ -5,7 +5,12 @@ import { Measurements } from "../components/Measurements";
 import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
-import { WeatherCard, Image, Container } from "../components/Styled";
+import {
+  WeatherCard,
+  Image,
+  Container,
+  EmojiContainer
+} from "../components/Styled";
 import { byAddressPipe, byLatLngPipe } from "../api";
 import {
   getHistory,
@@ -134,10 +139,13 @@ class App extends Component {
           handleSubmit={this.handleSubmit}
         />
         <Container>
-          {shouldShowFailureEmoji &&
-            FailureEmojis.map(({ label, symbol }) => (
-              <Emoji key={label} label={label} symbol={symbol} />
-            ))}
+          {shouldShowFailureEmoji && (
+            <EmojiContainer>
+              {FailureEmojis.map(({ label, symbol }) => (
+                <Emoji key={label} label={label} symbol={symbol} />
+              ))}
+            </EmojiContainer>
+          )}
           {shouldShowMagicWand && (
             <Image
               src={Splash}
