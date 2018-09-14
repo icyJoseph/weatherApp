@@ -18,3 +18,12 @@ export const byAddressPipe = (query, cb, errCb) => {
     .then(res => cb(res, query))
     .catch(error => errCb({ error }));
 };
+
+export const byLatLngPipe = (query, cb, errCb) => {
+  return axios
+    .post(byLatLngEndPoint, { ...query })
+    .then(({ data }) => data)
+    .then(addExpiry)
+    .then(res => cb(res, res.city))
+    .catch(error => errCb({ error }));
+};
