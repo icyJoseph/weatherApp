@@ -13,9 +13,8 @@ const fadeIn = keyframes`
 `;
 
 export const WeatherCard = styled.div`
-  width: 47.5%;
-  margin-right: 26.25%;
-  margin-left: 26.25%;
+  margin: 0 auto;
+  width: 300px;
   background: #f5f5f5;
   display: flex;
   justify-content: center;
@@ -24,6 +23,10 @@ export const WeatherCard = styled.div`
   border-radius: 40px;
   box-shadow: 2px 2px 4px 4px rgba(53, 53, 53, 0.65);
   animation: ${fadeIn} 2s ease-out;
+
+  @media (max-width: 600px) {
+    width: 250px;
+  }
 `;
 
 export const SvgContainer = styled.svg`
@@ -109,10 +112,8 @@ export const LoadingWrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  width: 100%;
-  height: auto;
   position: absolute;
-  left: 0;
+  width: 100%;
   top: 33%;
 `;
 
