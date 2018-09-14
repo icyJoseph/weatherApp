@@ -5,7 +5,7 @@ import { Measurements } from "../components/Measurements";
 import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
-import { WeatherCard, Image } from "../components/Styled";
+import { WeatherCard, Image, Container } from "../components/Styled";
 import { byAddressPipe, byLatLngPipe } from "../api";
 import {
   getHistory,
@@ -133,27 +133,29 @@ class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        {shouldShowFailureEmoji &&
-          FailureEmojis.map(({ label, symbol }) => (
-            <Emoji key={label} label={label} symbol={symbol} />
-          ))}
-        {shouldShowMagicWand && (
-          <Image
-            src={Splash}
-            width="200px"
-            height="auto"
-            draggable={false}
-            onClick={this.getGeoLocation}
-          />
-        )}
-        {loading && <Loading type="balls" color="white" />}
-        {shouldShowWeatherCard && (
-          <WeatherCard>
-            <Geography {...weather} />
-            <Measurements {...weather} />
-            <Weather {...weather} />
-          </WeatherCard>
-        )}
+        <Container>
+          {shouldShowFailureEmoji &&
+            FailureEmojis.map(({ label, symbol }) => (
+              <Emoji key={label} label={label} symbol={symbol} />
+            ))}
+          {shouldShowMagicWand && (
+            <Image
+              src={Splash}
+              width="200px"
+              height="auto"
+              draggable={false}
+              onClick={this.getGeoLocation}
+            />
+          )}
+          {loading && <Loading type="balls" color="white" />}
+          {shouldShowWeatherCard && (
+            <WeatherCard>
+              <Geography {...weather} />
+              <Measurements {...weather} />
+              <Weather {...weather} />
+            </WeatherCard>
+          )}
+        </Container>
       </Fragment>
     );
   }

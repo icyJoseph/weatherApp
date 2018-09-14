@@ -13,6 +13,9 @@ const fadeIn = keyframes`
 `;
 
 export const WeatherCard = styled.div`
+  width: 47.5%;
+  margin-right: 26.25%;
+  margin-left: 26.25%;
   background: #f5f5f5;
   display: flex;
   justify-content: center;
@@ -100,7 +103,17 @@ export const Button = styled.a`
 export const LoadingWrapper = styled.div`
   display: flex;
   flex: 1;
-  width: 100px;
+  margin-right: 40%;
+  margin-left: 40%;
+  width: 20%;
+`;
+
+export const Container = styled.div`
+  width: 100%;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 33%;
 `;
 
 export const Image = styled.img`
@@ -108,6 +121,10 @@ export const Image = styled.img`
   box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.4);
   transition: transform 1.5s ease-in-out, box-shadow 1.5s ease-in-out;
   transform: scale(1);
+  display: block;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
 
   :hover {
     box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.7);
