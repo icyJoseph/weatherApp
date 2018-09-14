@@ -16,6 +16,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "surge --domain https://special-beginner.surge.sh"
+    "deploy": "yarn build && surge --domain https://special-beginner.surge.sh"
   }
 }
