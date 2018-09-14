@@ -44,9 +44,11 @@ export const reportGeoLocation = (cb, err) => {
     maximumAge: 0
   };
 
-  return navigator.geolocation.getCurrentPosition(
-    ({ coords }) => cb(coords.latitude, coords.longitude),
-    err,
-    options
+  return new Promise(resolve =>
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => resolve(cb(coords.latitude, coords.longitude)),
+      err,
+      options
+    )
   );
 };
