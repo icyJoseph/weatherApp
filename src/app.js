@@ -1,22 +1,22 @@
 import React, { Component, Fragment } from "react";
-import { Geography } from "../components/Geography";
-import { Emoji } from "../components/Emoji";
-import { Measurements } from "../components/Measurements";
-import { Loading } from "../components/Loading";
-import { Search } from "../components/Search";
-import { Weather } from "../components/Weather";
-import { Magic } from "../components/MagicButton";
-import { WeatherCard, Container, EmojiContainer } from "../components/Styled";
-import { byAddressPipe, byLatLngPipe } from "../api";
+import { Geography } from "./components/Geography";
+import { Emoji } from "./components/Emoji";
+import { Measurements } from "./components/Measurements";
+import { Loading } from "./components/Loading";
+import { Search } from "./components/Search";
+import { Weather } from "./components/Weather";
+import { Magic } from "./components/MagicButton";
+import { WeatherCard, Container, EmojiContainer } from "./components/Styled";
+import { byAddressPipe, byLatLngPipe } from "./api";
 import {
   getHistory,
   updateHistory,
   existingValidData,
   checkGeoLocationPermission,
   reportGeoLocation
-} from "../utils";
-import { debounce } from "../helpers";
-import { weatherApp, FailureEmojis } from "../constants";
+} from "./utils";
+import { debounce } from "./helpers";
+import { weatherApp, FailureEmojis } from "./constants";
 
 class App extends Component {
   state = {
