@@ -5,12 +5,8 @@ import { Measurements } from "../components/Measurements";
 import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { Weather } from "../components/Weather";
-import {
-  WeatherCard,
-  Image,
-  Container,
-  EmojiContainer
-} from "../components/Styled";
+import { Magic } from "../components/MagicButton";
+import { WeatherCard, Container, EmojiContainer } from "../components/Styled";
 import { byAddressPipe, byLatLngPipe } from "../api";
 import {
   getHistory,
@@ -21,8 +17,6 @@ import {
 } from "../utils";
 import { debounce } from "../helpers";
 import { weatherApp, FailureEmojis } from "../constants";
-
-import Splash from "../logos/magicwand.png";
 
 class App extends Component {
   state = {
@@ -146,15 +140,7 @@ class App extends Component {
               ))}
             </EmojiContainer>
           )}
-          {shouldShowMagicWand && (
-            <Image
-              src={Splash}
-              width="200px"
-              height="auto"
-              draggable={false}
-              onClick={this.getGeoLocation}
-            />
-          )}
+          {shouldShowMagicWand && <Magic onClick={this.getGeoLocation} />}
           {loading && <Loading type="balls" color="white" />}
           {shouldShowWeatherCard && (
             <WeatherCard>

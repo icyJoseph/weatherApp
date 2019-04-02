@@ -69,12 +69,16 @@ export const Input = styled.input`
   border-bottom: 2px solid #f8f8f8;
   font-size: 36pt;
 
-  :focus {
+  &:focus {
     outline: none;
   }
 
-  ::placeholder {
-    color: #e9e9e9;
+  &::placeholder {
+    color: #f8f8f8;
+  }
+
+  &:focus::placeholder {
+    opacity: 0;
   }
 
   @media (max-width: 600px) {

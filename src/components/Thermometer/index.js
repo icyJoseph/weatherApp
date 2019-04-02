@@ -1,5 +1,5 @@
 import React from "react";
-import { mapColorToTemp } from "../helpers";
+import { mapColorToTemp } from "../../helpers";
 
 // max temp is 46.818, lower temps need higher numbers, lowest happens at 176
 const high = 46.818;

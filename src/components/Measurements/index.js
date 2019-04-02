@@ -1,6 +1,6 @@
 import React from "react";
 import { FlexSection, SvgContainer } from "../Styled";
-import { Thermometer } from "../../logos/thermometer";
+import { Thermometer } from "../Thermometer";
 
 export const Measurements = ({ currently = {}, daily: { data = [] } }) => {
   const { temperature } = currently;

@@ -1,57 +1,51 @@
 import React from "react";
-import { FlexSection, SvgContainer } from "../Styled";
 
-import { Moon } from "../../logos/moon";
-import { Sun } from "../../logos/sun";
-import { Snowflake } from "../../logos/snowflake";
-import { Cloudy } from "../../logos/cloudy";
-import { Lightning } from "../../logos/lightning";
-import { Rainy } from "../../logos/rainy";
-import { WindyDay } from "../../logos/windyDay";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSun,
+  faMoon,
+  faCloud,
+  // faCloudSun,
+  faCloudRain,
+  // faCloudSunRain,
+  // faCloudMoon,
+  // faCloudMoonRain,
+  faWind,
+  faSnowflake,
+  faBolt
+} from "@fortawesome/free-solid-svg-icons";
 
 import { Icons } from "../../constants";
 
 const selector = icon => {
   switch (icon) {
     case Icons.CLEAR_DAY:
-      return Sun;
+      return faSun;
     case Icons.CLEAR_NIGHT:
-      return Moon;
+      return faMoon;
     case Icons.WIND:
-      return WindyDay;
+      return faWind;
     case Icons.FOG:
     case Icons.CLOUDY:
     case Icons.PARTLY_CLOUDY_DAY:
     case Icons.PARTLY_CLOUDY_NIGHT:
-      return Cloudy;
+      return faCloud;
     case Icons.RAIN:
-      return Rainy;
+      return faCloudRain;
     case Icons.SNOW:
     case Icons.SLEET:
-      return Snowflake;
+      return faSnowflake;
     case Icons.THUNDERSTORM:
-      return Lightning;
+      return faBolt;
     default:
-      return Sun;
+      return faSun;
   }
 };
 
-export const Weather = ({ currently: { icon = "" } }) => {
-  const Component = selector(icon);
-
+export const Weather = ({ currently: { icon } }) => {
   return (
-    <FlexSection
-      flex={3}
-      style={{
-        background: "#fc6363",
-        borderRadius: "50% 50% 40px 40px",
-        width: "96%",
-        padding: "2%"
-      }}
-    >
-      <SvgContainer width="100px" height="100px" viewBox="0 0 300 300">
-        {Component ? <Component /> : null}
-      </SvgContainer>
-    </FlexSection>
+    <div>
+      <FontAwesomeIcon icon={selector(icon)} />
+    </div>
   );
 };
