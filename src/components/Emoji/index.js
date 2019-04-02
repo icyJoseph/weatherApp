@@ -11,3 +11,5 @@ export const Emoji = ({ label, symbol }) => (
     {symbol}
   </span>
 );
+
+export default Emoji;

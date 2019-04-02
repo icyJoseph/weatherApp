@@ -4,11 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-loadable": "^5.5.0",
     "react-loading": "^2.0.3",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^2.0.3",
     "styled-components": "^3.3.3"
   },
   "scripts": {
@@ -17,5 +17,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "yarn build && surge --domain https://special-beginner.surge.sh"
+  },
+  "devDependencies": {
+    "react-testing-library": "^6.0.4"
   }
 }
