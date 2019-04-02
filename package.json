@@ -24,6 +24,7 @@
     "deploy": "yarn build && surge --domain https://special-beginner.surge.sh"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.16.0",
     "react-testing-library": "^6.0.4"
   },
   "browserslist": [
