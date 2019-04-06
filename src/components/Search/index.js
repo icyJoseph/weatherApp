@@ -1,9 +1,10 @@
 import React from "react";
-import { Button, Form, Input } from "../Styled";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { ButtonWrap, Form, Input } from "../Styled";
 import { SearchField } from "../../constants";
 
-export const Search = ({ query, handleSubmit, handleChange }) => {
+export const Search = ({ query, handleSubmit, handleChange, disabled }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Input
@@ -11,8 +12,11 @@ export const Search = ({ query, handleSubmit, handleChange }) => {
         placeholder={SearchField.PLACEHOLDER}
         value={query}
         onChange={handleChange}
+        disabled={disabled}
       />
-      <Button onClick={handleSubmit}>{SearchField.BUTTON}</Button>
+      <ButtonWrap onClick={handleSubmit} noGutters>
+        <FontAwesomeIcon icon={faSearch} />
+      </ButtonWrap>
     </Form>
   );
 };

@@ -14,7 +14,7 @@ import {
   faSnowflake,
   faBolt
 } from "@fortawesome/free-solid-svg-icons";
-
+import { WeatherWrap } from "../../components/Styled";
 import { Icons } from "../../constants";
 
 const selector = icon => {
@@ -44,8 +44,8 @@ const selector = icon => {
 
 export const Weather = ({ currently: { icon } }) => {
   return (
-    <div>
+    <WeatherWrap>
       <FontAwesomeIcon icon={selector(icon)} />
-    </div>
+    </WeatherWrap>
   );
 };
