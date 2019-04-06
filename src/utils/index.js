@@ -6,19 +6,9 @@ export const getHistory = (item, cb) => {
   return history ? JSON.parse(history) : [];
 };
 
-export const updateHistory = (storage, history, newItem) => {
-  const index = history.findIndex(({ query }) => query === newItem.query);
-  const newHead = [newItem];
-  const updatedHistory =
-    index === -1
-      ? newHead.concat(history)
-      : newHead.concat(
-          history.slice(0, index).concat(history.slice(index + 1))
-        );
-
-  localStorage.setItem(storage, JSON.stringify(updatedHistory));
-
-  return updatedHistory;
+export const updateHistory = (storage, history) => {
+  localStorage.setItem(storage, JSON.stringify(history));
+  return getHistory(storage);
 };
 
 export const existingValidData = (history, currentQuery) => {
