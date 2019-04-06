@@ -9,7 +9,8 @@ export const addExpiry = weather => {
   return { ...weather, expiry: now + 1000 };
 };
 
-export const byAddressPipe = (query, cb, errCb) => {
+export const byAddressPipe = (query, cb, errCb, onInit) => {
+  onInit();
   return axios
     .post(byAddressEndPoint, { address: query })
     .then(({ data }) => data)
@@ -18,11 +19,12 @@ export const byAddressPipe = (query, cb, errCb) => {
     .catch(error => errCb({ error }));
 };
 
-export const byLatLngPipe = (query, cb, errCb) => {
+export const byLatLngPipe = (query, cb, errCb, onInit) => {
+  onInit();
   return axios
     .post(byLatLngEndPoint, { ...query })
     .then(({ data }) => data)
     .then(addExpiry)
-    .then(res => cb(res, res.city))
+    .then(res => cb(res, `${res.city}, ${res.street}`))
     .catch(error => errCb({ error }));
 };
